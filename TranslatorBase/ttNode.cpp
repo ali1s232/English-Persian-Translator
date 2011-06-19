@@ -1,13 +1,14 @@
-#include "tlNode.h"
+#include "ttNode.h"
 
 using namespace std;
+using namespace TranslationTools;
 
-tlNode::tlNode()
+ttNode::ttNode()
 {
 
 }
 
-tlNode::tlNode(tlObject* first, ...)
+ttNode::ttNode(ttObject* first, ...)
 {
 	while (first)
 	{
@@ -17,7 +18,7 @@ tlNode::tlNode(tlObject* first, ...)
 	}
 }
 
-void tlNode::attachChild(tlObject* pEntry,int pos)
+void ttNode::attachChild(ttObject* pEntry,int pos)
 {
 	pEntry->retain();
 	if (pos < 0 || pos >= (int)children.size())
@@ -26,7 +27,7 @@ void tlNode::attachChild(tlObject* pEntry,int pos)
 		children.insert(children.begin()+pos,pEntry);
 }
 
-void tlNode::removeChild(int pos)
+void ttNode::removeChild(int pos)
 {
 	if (pos>=0 && pos < (int)children.size())
 	{
@@ -35,7 +36,7 @@ void tlNode::removeChild(int pos)
 	}
 }
 
-void tlNode::print(ostream& stream)
+void ttNode::print(ostream& stream)
 {
 	for(unsigned i=0;i<children.size()-1;i++)
 	{

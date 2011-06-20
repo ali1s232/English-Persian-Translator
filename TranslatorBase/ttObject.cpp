@@ -3,7 +3,7 @@
 
 using namespace TranslationTools;
 
-ttObject::ttObject() : mRefCount(0), mAutoRelease(false), mMetaData(false)
+ttObject::ttObject() : mRefCount(0), mAutoRelease(false)
 {
 	setAutoRelease(true);
 }
@@ -43,18 +43,21 @@ bool ttObject::getAutoRelease() const
 	return mAutoRelease;
 }
 
-void ttObject::setMetaData(ttObject* pData)
+void ttObject::attachMetaData(ttObject* pData)
 {
-	if (pData)
+	std::map<typeinfowrapper, ttObject*>::iterator temp = mMetaData.find(typeid(*pData));
+	if (temp == mMetaData.end())
+	{
 		pData->retain();
-	if (mMetaData)
-		mMetaData->release();
-	mMetaData = pData;		
-}
-
-ttObject* ttObject::getMetaData() const
-{
-	return mMetaData;
+		mMetaData[typeid(*pData)] = pData;
+	}
+	else
+		if(temp->second != pData)
+		{
+			temp->second->release();
+			pData->retain();
+			mMetaData[typeid(*pData)] = pData;
+		}
 }
 
 void ttObject::print(std::ostream& stream)

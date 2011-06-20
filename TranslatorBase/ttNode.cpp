@@ -1,4 +1,5 @@
 #include "ttNode.h"
+#include <stdarg.h>
 
 using namespace std;
 using namespace TranslationTools;
@@ -10,11 +11,14 @@ ttNode::ttNode()
 
 ttNode::ttNode(ttObject* first, ...)
 {
+	int i = _INTSIZEOF(ttObject*);
+	va_list list;
+	va_start(list,first);
 	while (first)
 	{
 		first->retain();
 		children.push_back(first);
-		first ++;
+		first = va_arg(list,ttObject*);
 	}
 }
 

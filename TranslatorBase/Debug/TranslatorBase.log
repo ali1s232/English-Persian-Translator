@@ -1,0 +1,9 @@
+﻿  ttDictionary.cpp
+c:\users\ali\documents\visual studio 2010\projects\translator\translatorbase\ttdictionary.h(14): error C2061: syntax error : identifier 'ttWordInformation'
+  ttWord.cpp
+  Generating Code...
+  Compiling...
+  ttObject.cpp
+  ttNode.cpp
+  ttMemoryManager.cpp
+  Generating Code...

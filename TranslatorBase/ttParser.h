@@ -4,18 +4,20 @@
 #define ttPARSER_H_
 
 #include "ttNode.h"
-#include "ttAtomic.h"
+#include "ttWord.h"
+#include "ttNode.h"
 
 namespace TranslationTools
 {
 
 class ttParser
 {
-protected:
-	ttNode* root;
 public:
-	void parse(ttAtomic::wordType script);
-	
+	ttParser(ttWord::wordType scrpit);
+	ttParser();
+	virtual ttNode* parse(ttWord::wordType script) = 0;
+	ttPROPERTY_NODEF_PROTECTED(ttNode*, root);
+	virtual ttNode* translate(ttNode* pRoot) = 0;
 };
 
 }

@@ -10,39 +10,45 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SharedObjects.h">
+    <ClInclude Include="ttMacros.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tlObject.h">
+    <ClInclude Include="ttMemoryManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tlMacros.h">
+    <ClInclude Include="ttNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tlAtomic.h">
+    <ClInclude Include="ttObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tlNode.h">
+    <ClInclude Include="TranslatorTools.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tlMemoryManager.h">
+    <ClInclude Include="ttParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TranslatorParser.h">
+    <ClInclude Include="ttDictionary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ttWord.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="tlObject.cpp">
+    <ClCompile Include="ttMemoryManager.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
-    <ClCompile Include="tlNode.cpp">
+    <ClCompile Include="ttNode.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
-    <ClCompile Include="tlAtomic.cpp">
+    <ClCompile Include="ttObject.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
-    <ClCompile Include="tlMemoryManager.cpp">
+    <ClCompile Include="ttDictionary.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="ttWord.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
   </ItemGroup>

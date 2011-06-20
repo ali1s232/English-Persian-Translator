@@ -1,19 +1,19 @@
-#include "ttAtomic.h"
+#include "ttWord.h"
 
 using namespace std;
 using namespace TranslationTools;
 
-ttAtomic::ttAtomic(ttAtomic::wordType pWord): word(pWord)
+ttWord::ttWord(ttWord::wordType pWord): word(pWord)
 {
 
 }
 
-void ttAtomic::print(ostream& stream)
+void ttWord::print(ostream& stream)
 {
 	stream << word;
 }
 
-ostream& operator <<(ostream& stream,ttAtomic::wordType w)
+ostream& operator <<(ostream& stream,ttWord::wordType w)
 {
 	char* target = (char*)w.c_str();
 	for (unsigned i=0;i<w.length();i++,target += 2)

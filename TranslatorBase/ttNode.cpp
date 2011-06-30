@@ -1,5 +1,6 @@
 #include "ttNode.h"
 #include <stdarg.h>
+#include <iostream>
 
 using namespace std;
 using namespace TranslationTools;
@@ -7,6 +8,11 @@ using namespace TranslationTools;
 ttNode::ttNode()
 {
 
+}
+
+ttNode::~ttNode()
+{
+	cout << "man delete shodam alan!\n";
 }
 
 ttNode::ttNode(ttObject* first, ...)

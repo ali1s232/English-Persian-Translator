@@ -15,6 +15,7 @@ class ttNode : public ttObject
 public:
 	ttNode();
 	ttNode(ttObject* first,...);
+	~ttNode();
 	inline ttObject* operator [](int i) const
 	{
 		return children[i];

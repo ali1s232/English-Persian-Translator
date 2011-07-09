@@ -4,6 +4,7 @@
 #include "ttMacros.h"
 #include <ostream>
 #include <map>
+#include "ttObjectPool.h"
 
 namespace TranslationTools
 {
@@ -13,24 +14,8 @@ namespace TranslationTools
 	{
 		ttDeclareRTTI;
 	protected:
-		struct typeinfowrapper
-		{
-		private :
-			const std::type_info& info;
-		public:
-			typeinfowrapper() : info(typeid(void))
-			{
-			}
-			typeinfowrapper(const std::type_info& pInfo) : info (pInfo)
-			{
-			}
-
-			bool operator == (const typeinfowrapper& right) const {return info == right.info;}
-			bool operator < (const typeinfowrapper& right) const {return strcmp(info.name(),right.info.name()) < 0;};
-			operator const std::type_info&(){return info;};
-		};
 		unsigned mRefCount;
-		std::map<typeinfowrapper, ttObject*> mMetaData;
+		std::map<ttRTTI, ttObject*> mMetaData;
 	public:
 		ttPROPERTY_NODEF(bool ,AutoRelease);
 
@@ -42,16 +27,16 @@ namespace TranslationTools
 		void release();
 
 		void attachMetaData(ttObject* pData);
-		ttObject* getMetaData(const std::type_info& t);
-		void detachMetaData(const std::type_info& t);
+		ttObject* getMetaData(const ttRTTI& t);
+		void detachMetaData(const ttRTTI& t);
 		void detachAllMetaData();
 		template <class T> inline typename std::enable_if<std::is_base_of<ttObject,T>::value,T*>::type getMetaData()
 		{
-			return (T*)getMetaData(typeid(T));
+			return (T*)getMetaData(T::getStaticTypeInfo());
 		}
 		template <class T> inline typename std::enable_if<std::is_base_of<ttObject,T>::value,void>::type detachMetaData()
 		{
-			detachMetaData(typeid(T));
+			detachMetaData(T::getStaticTypeInfo());
 		}
 		
 		virtual void print(std::ostream& stream);

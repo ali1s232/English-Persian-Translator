@@ -32,6 +32,15 @@ namespace TranslationTools
 		void registerNewSample(ttObject* sample);
 		const ttObject* getObjectSample(ttRTTI&)const;
 	};
+
+	struct ttObjectIntroducer
+	{
+		ttObjectIntroducer(ttObject* obj)
+		{
+			TranslationTools::ttObjectPool::getInstance()->registerNewSample(obj);
+		}
+	};
+
 };
 
 #endif

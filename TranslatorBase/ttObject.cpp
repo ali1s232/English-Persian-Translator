@@ -15,13 +15,13 @@ ttObject::ttObject() : mRefCount(0), mAutoRelease(false)
 
 ttObject::ttObject(const ttObject& pObject) : mRefCount(0), mAutoRelease(pObject.mAutoRelease)
 {
-	for(map <typeinfowrapper,ttObject*>::const_iterator i = pObject.mMetaData.cbegin();i!=pObject.mMetaData.cend();i++)
+	for(map <ttRTTI,ttObject*>::const_iterator i = pObject.mMetaData.cbegin();i!=pObject.mMetaData.cend();i++)
 		attachMetaData(i->second);
 }
 
 ttObject::~ttObject()
 {
-	for (map<typeinfowrapper,ttObject*> ::iterator i=mMetaData.begin(); i != mMetaData.end();i++)
+	for (map<ttRTTI,ttObject*> ::iterator i=mMetaData.begin(); i != mMetaData.end();i++)
 		i->second->release();
 }
 
@@ -57,22 +57,22 @@ bool ttObject::getAutoRelease() const
 
 void ttObject::attachMetaData(ttObject* pData)
 {
-	std::map<typeinfowrapper, ttObject*>::iterator temp = mMetaData.find(typeid(*pData));
+	std::map<ttRTTI, ttObject*>::iterator temp = mMetaData.find(pData->getTypeInfo());
 	if (temp == mMetaData.end())
 	{
 		pData->retain();
-		mMetaData[typeid(*pData)] = pData;
+		mMetaData[pData->getTypeInfo()] = pData;
 	}
 	else
 		if(temp->second != pData)
 		{
 			temp->second->release();
 			pData->retain();
-			mMetaData[typeid(*pData)] = pData;
+			mMetaData[pData->getTypeInfo()] = pData;
 		}
 }
 
-ttObject* ttObject::getMetaData(const type_info& t)
+ttObject* ttObject::getMetaData(const ttRTTI& t)
 {
 	if (mMetaData.find(t) != mMetaData.end())
 		return mMetaData[t];
@@ -80,9 +80,9 @@ ttObject* ttObject::getMetaData(const type_info& t)
 		return NULL;
 }
 
-void ttObject::detachMetaData(const type_info& t)
+void ttObject::detachMetaData(const ttRTTI& t)
 {
-	std::map<typeinfowrapper, ttObject*>::iterator temp = mMetaData.find(t);
+	std::map<ttRTTI, ttObject*>::iterator temp = mMetaData.find(t);
 	if (temp != mMetaData.end())
 	{
 		temp->second->release();
@@ -93,7 +93,7 @@ void ttObject::detachMetaData(const type_info& t)
 void ttObject::detachAllMetaData()
 {
 	while (mMetaData.size())
-		detachMetaData((const type_info&)mMetaData.begin()->first);
+		detachMetaData(mMetaData.begin()->first);
 }
 
 void ttObject::load(ttFileIManager& pFileManager,void* pBuffer,int pBufferSize)

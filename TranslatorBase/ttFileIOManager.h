@@ -5,8 +5,12 @@
 #include <fstream>
 #include <map>
 #include <vector>
+#include <list>
+#include <stack>
+
 #include "ttObject.h"
 #include "ttObjectPool.h"
+
 
 namespace TranslationTools
 {
@@ -14,9 +18,11 @@ namespace TranslationTools
 	{
 		char* mDataBuffer;
 		std::map<ttObject*, int> mObjectDictionary;
-		std::vector<std::pair<std::pair<unsigned,unsigned> ,ttObject*> > mNewedMemmory;
+		std::vector<std::pair<std::list<std::pair<unsigned,unsigned> > ,ttObject*> > mNewedMemmory;
+		std::stack<unsigned> mLoadStack;
+		const int inheritebit;
 	public:
-		ttFileIManager() : mDataBuffer(NULL) 
+		ttFileIManager() : mDataBuffer(NULL) , inheritebit(1<<31)
 		{
 		
 		}
@@ -36,11 +42,18 @@ namespace TranslationTools
 				s.read((char*)&x,4);
 				if (i == 0)
 					root = x;
-				s.read((char*)&mNewedMemmory[i].first.second,4);
 				mObjectDictionary[x] = i;
-				mNewedMemmory[i].first.first = totalDataSize;
-				mNewedMemmory[i].second = NULL;
-				totalDataSize += mNewedMemmory[i].first.second;
+				std::pair<unsigned,unsigned> temp;
+				do
+				{
+					s.read((char*)&temp.second,4);
+					temp.first = totalDataSize;
+					totalDataSize += temp.second & ~inheritebit;
+					mNewedMemmory[i].first.push_back(temp);
+					mNewedMemmory[i].first.back().second &= ~inheritebit;
+					mNewedMemmory[i].second = NULL;
+				}
+				while((temp.second & inheritebit) != 0);
 			}
 			mDataBuffer = new char[totalDataSize];
 			//for(unsigned i=0;i<objectNum;i++)
@@ -61,14 +74,37 @@ namespace TranslationTools
 				return dynamic_cast<T*>(mNewedMemmory[i].second);
 			ttRTTI rtti;
 			unsigned rttiSize;
-			memcpy(&rttiSize,mDataBuffer + mNewedMemmory[i].first.first,4);
-			rtti.load(mDataBuffer + mNewedMemmory[i].first.first + 4,rttiSize);
-			ttObject* result = ttObjectPool::getInstance()->getObjectSample(rtti)->clone();
+			memcpy(&rttiSize,mDataBuffer + mNewedMemmory[i].first.begin()->first,4);
+			rtti.load(mDataBuffer + mNewedMemmory[i].first.begin()->first + 4,rttiSize);
+			const ttObject* sample = ttObjectPool::getInstance()->getObjectSample(rtti);
+			
+			ttObject* result = sample->clone();
 			mNewedMemmory[i].second = result;
-			result->load(*this,mDataBuffer + mNewedMemmory[i].first.first + 4 + rttiSize,mNewedMemmory[i].first.second - 4 - rttiSize);
+			mLoadStack.push(i);
+			result->load(*this,mDataBuffer + mNewedMemmory[i].first.begin()->first + 4 + rttiSize,mNewedMemmory[i].first.begin()->second - 4 - rttiSize);
+			mLoadStack.pop();
 			return result;
 		}
 
+
+		template <class T> typename std::enable_if<std::is_base_of<ttObject,T>::value, void >::type loadParent()
+		{
+			ttRTTI targetRTTI = T::getStaticTypeInfo();
+			list<pair<unsigned,unsigned> >::iterator hierarchyList = mNewedMemmory[mLoadStack.top()].first.begin();
+			while (hierarchyList != mNewedMemmory[mLoadStack.top()].first.end())
+			{
+				ttRTTI rtti;
+				unsigned rttiSize;
+				memcpy(&rttiSize,mDataBuffer + hierarchyList->first,4);
+				rtti.load(mDataBuffer + hierarchyList->first + 4,rttiSize);
+				if (rtti == targetRTTI)
+				{
+					mNewedMemmory[mLoadStack.top()].second->T::load(*this,mDataBuffer + hierarchyList->first + 4 + rttiSize,hierarchyList->second - 4 - rttiSize);
+					return;
+				}
+				hierarchyList++;
+			}
+		}
 	};
 
 	class ttFileOMAnager

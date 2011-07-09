@@ -10,13 +10,19 @@ namespace TranslationTools
 
 	class ttWord : public ttObject
 	{
+		ttDeclareRTTI;
 	public:
 		typedef std::basic_string<wchar_t> wordType;
 	private:
-		wordType word;
+		wordType mWord;
 	public:
 		ttWord(wordType pWord = L"");
+		ttWord(const ttWord&);
 		virtual void print(std::ostream& stream);
+		virtual void save(ttFileOManager& buffer,void*){};
+		virtual void load(ttFileIManager& buffer,void* ,int size); 
+		virtual int size() { return 0;};
+		virtual ttObject* clone() const;
 	};
 
 }

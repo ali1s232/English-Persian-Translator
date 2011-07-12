@@ -9,13 +9,20 @@
 namespace TranslationTools
 {
 
-class ttNode : public ttObject
+class ttArray : public ttObject
 {
+	ttDeclareRTTI;
 	std::vector<ttObject*> children;
 public:
-	ttNode();
-	ttNode(ttObject* first,...);
-	~ttNode();
+	ttArray();
+	ttArray(ttObject* first,...);
+	ttArray(ttArray& pNode) : ttObject(pNode)
+	{
+		children.resize(pNode.children.size());
+		for(unsigned i=0;i<pNode.size();i++)
+			children[i] = pNode.children[i];
+	}
+	~ttArray();
 	inline ttObject* operator [](int i) const
 	{
 		return children[i];
@@ -27,6 +34,8 @@ public:
 	void attachChild(ttObject* pEntry,int pos = -1);
 	void removeChild(int pos = -1);
 	void print(std::ostream& stream);
+	
+	void 
 };
 
 }

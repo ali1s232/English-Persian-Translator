@@ -1,21 +1,23 @@
-#include "ttNode.h"
+#include "ttArray.h"
 #include <stdarg.h>
 #include <iostream>
 
 using namespace std;
 using namespace TranslationTools;
 
-ttNode::ttNode()
+ttImplementRTTI(ttArray);
+
+ttArray::ttArray()
 {
 
 }
 
-ttNode::~ttNode()
+ttArray::~ttArray()
 {
 	cout << "man delete shodam alan!\n";
 }
 
-ttNode::ttNode(ttObject* first, ...)
+ttArray::ttArray(ttObject* first, ...)
 {
 	int i = _INTSIZEOF(ttObject*);
 	va_list list;
@@ -28,7 +30,7 @@ ttNode::ttNode(ttObject* first, ...)
 	}
 }
 
-void ttNode::attachChild(ttObject* pEntry,int pos)
+void ttArray::attachChild(ttObject* pEntry,int pos)
 {
 	pEntry->retain();
 	if (pos < 0 || pos >= (int)children.size())
@@ -37,7 +39,7 @@ void ttNode::attachChild(ttObject* pEntry,int pos)
 		children.insert(children.begin()+pos,pEntry);
 }
 
-void ttNode::removeChild(int pos)
+void ttArray::removeChild(int pos)
 {
 	if (pos>=0 && pos < (int)children.size())
 	{
@@ -46,7 +48,7 @@ void ttNode::removeChild(int pos)
 	}
 }
 
-void ttNode::print(ostream& stream)
+void ttArray::print(ostream& stream)
 {
 	for(unsigned i=0;i<children.size()-1;i++)
 	{

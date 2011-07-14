@@ -7,10 +7,10 @@ ttImplementRTTI(ttWord);
 
 ttWord::ttWord(ttWord::wordType pWord): mWord(pWord)
 {
-//	abjad.i = 5;
+
 }
 
-ttWord::ttWord(const ttWord& input) : ttObject(*this), mWord(input.mWord)
+ttWord::ttWord(const ttWord& input) : ttObject(input), mWord(input.mWord)
 {
 }
 
@@ -19,13 +19,22 @@ void ttWord::print(ostream& stream)
 	stream << mWord;
 }
 
-//void ttWord::save(ttFileOManager& buffer,void*){};
+void ttWord::save(ttFileOManager& buffer,void*target)
+{
+	buffer.saveParent<ttObject>();
+	memcpy(target,mWord.c_str(),mWord.size() * 2);
+}
 void ttWord::load(ttFileIManager& buffer,void* data,int size)
 {
 	buffer.loadParent<ttObject>();
 	mWord.assign((wchar_t*)data,size);
 }
-//int ttWord::size() { return 0;};
+
+int ttWord::size()
+{
+	return mWord.size() * 2;
+}
+
 ttObject* ttWord::clone() const
 {
 	ttWord* result = new ttWord;

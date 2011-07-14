@@ -4,7 +4,7 @@
 
 #include "ttWord.h"
 #include "ttObject.h"
-#include "ttNode.h"
+#include "ttArray.h"
 #include "ttDictionary.h"
 #include "ttFileIOManager.h"
 #include "ttMemoryManager.h"

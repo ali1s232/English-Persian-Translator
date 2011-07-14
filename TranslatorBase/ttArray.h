@@ -12,30 +12,28 @@ namespace TranslationTools
 class ttArray : public ttObject
 {
 	ttDeclareRTTI;
-	std::vector<ttObject*> children;
+	std::vector<ttObject*> mData;
 public:
 	ttArray();
 	ttArray(ttObject* first,...);
-	ttArray(ttArray& pNode) : ttObject(pNode)
-	{
-		children.resize(pNode.children.size());
-		for(unsigned i=0;i<pNode.size();i++)
-			children[i] = pNode.children[i];
-	}
+	ttArray(const ttArray&);
 	~ttArray();
 	inline ttObject* operator [](int i) const
 	{
-		return children[i];
+		return mData[i];
 	}
 	inline ttObject& operator ()(int i) const
 	{
-		return *children[i];
+		return *mData[i];
 	}
-	void attachChild(ttObject* pEntry,int pos = -1);
-	void removeChild(int pos = -1);
+	void addObject(ttObject* pEntry,int pos = -1);
+	void removeObject(int pos = -1);
 	void print(std::ostream& stream);
 	
-	void 
+	void save(ttFileOManager&, void*);
+	void load(ttFileIManager&, void*,int);
+	int size();
+	ttObject* clone() const;
 };
 
 }

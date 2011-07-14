@@ -10,7 +10,10 @@ void ttObjectPool::registerNewSample(ttObject* obj)
 {
 	ttRTTI sampleType = obj->getTypeInfo();
 	if (objectSamples.find(sampleType) == objectSamples.end())
+	{
 		objectSamples[sampleType] = obj;
+		obj->retain();
+	}
 }
 
 const ttObject* ttObjectPool::getObjectSample(ttRTTI& sampleRTTI) const

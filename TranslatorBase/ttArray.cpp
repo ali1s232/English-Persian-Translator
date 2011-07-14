@@ -19,41 +19,80 @@ ttArray::~ttArray()
 
 ttArray::ttArray(ttObject* first, ...)
 {
-	int i = _INTSIZEOF(ttObject*);
 	va_list list;
 	va_start(list,first);
 	while (first)
 	{
 		first->retain();
-		children.push_back(first);
+		mData.push_back(first);
 		first = va_arg(list,ttObject*);
 	}
 }
 
-void ttArray::attachChild(ttObject* pEntry,int pos)
+ttArray::ttArray(const ttArray& pArray) : ttObject(pArray)
 {
-	pEntry->retain();
-	if (pos < 0 || pos >= (int)children.size())
-		children.push_back(pEntry);
-	else
-		children.insert(children.begin()+pos,pEntry);
+	mData.resize(pArray.mData.size());
+	for(unsigned i=0;i<pArray.mData.size();i++)
+	{
+		mData[i] = pArray.mData[i];
+		mData[i]->retain();
+	}
 }
 
-void ttArray::removeChild(int pos)
+void ttArray::addObject(ttObject* pEntry,int pos)
 {
-	if (pos>=0 && pos < (int)children.size())
+	pEntry->retain();
+	if (pos < 0 || pos >= (int)mData.size())
+		mData.push_back(pEntry);
+	else
+		mData.insert(mData.begin()+pos,pEntry);
+}
+
+void ttArray::removeObject(int pos)
+{
+	if (pos>=0 && pos < (int)mData.size())
 	{
-		children[pos]->release();
-		children.erase(children.begin()+pos);
+		mData[pos]->release();
+		mData.erase(mData.begin()+pos);
 	}
+}
+
+void ttArray::save(ttFileOManager& pFileManager, void* pBuffer)
+{
+	pFileManager.saveParent<ttObject>();
+	ttObject** data = (ttObject**) pBuffer;
+	for(unsigned i=0;i<mData.size();i++)
+		pFileManager.addObject(data[i] = mData[i]);
+}
+
+void ttArray::load(ttFileIManager& pFileManager,void* pBuffer,int dataSize)
+{
+	int objectNum = dataSize / 4;
+	pFileManager.loadParent<ttObject>();
+	for(unsigned i = 0;i < mData.size();i++)
+		mData[i]->release();
+	mData.resize(objectNum);
+	ttObject** data = (ttObject**) pBuffer;
+	for(unsigned i=0;i<mData.size();i++)
+		mData[i] = pFileManager.renewPointer(data[i]);
+}
+
+int ttArray::size()
+{
+	return mData.size() * 4;
+}
+
+ttObject* ttArray::clone() const
+{
+	return new ttArray(*this);
 }
 
 void ttArray::print(ostream& stream)
 {
-	for(unsigned i=0;i<children.size()-1;i++)
+	for(unsigned i=0;i<mData.size()-1;i++)
 	{
-		children[i]->print(stream);
+		mData[i]->print(stream);
 		stream << ' ' << '\0';
 	}
-	children.back()->print(stream);
+	mData.back()->print(stream);
 }

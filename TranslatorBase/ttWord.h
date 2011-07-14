@@ -19,9 +19,9 @@ namespace TranslationTools
 		ttWord(wordType pWord = L"");
 		ttWord(const ttWord&);
 		virtual void print(std::ostream& stream);
-		virtual void save(ttFileOManager& buffer,void*){};
+		virtual void save(ttFileOManager& buffer,void*);
 		virtual void load(ttFileIManager& buffer,void* ,int size); 
-		virtual int size() { return 0;};
+		virtual int size();
 		virtual ttObject* clone() const;
 	};
 

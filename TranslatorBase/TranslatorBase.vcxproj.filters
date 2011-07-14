@@ -16,9 +16,6 @@
     <ClInclude Include="ttMemoryManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ttNode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ttObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -34,12 +31,21 @@
     <ClInclude Include="ttWord.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ttWordInformation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ttFileIOManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ttObjectPool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ttArray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ttMemoryManager.cpp">
-      <Filter>Source files</Filter>
-    </ClCompile>
-    <ClCompile Include="ttNode.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
     <ClCompile Include="ttObject.cpp">
@@ -49,6 +55,18 @@
       <Filter>Source files</Filter>
     </ClCompile>
     <ClCompile Include="ttWord.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="ttParser.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="ttFileIOManager.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="ttObjectPool.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="ttArray.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
   </ItemGroup>

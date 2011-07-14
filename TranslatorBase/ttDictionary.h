@@ -11,10 +11,10 @@ namespace TranslationTools
 	{
 	public:
 		ttDictionary(void);
-		virtual void load(ttFileIManager& buffer);
-		virtual void save(ttFileOManager& buffer);
-		virtual void addWord(ttWord* pObject);
-		virtual void getWord(ttWordInformation* pWI);
+		virtual void load(ttFileIManager& buffer){};
+		virtual void save(ttFileOManager& buffer){};
+		virtual void addWord(ttWord* pObject){};
+		virtual void getWord(ttWordInformation* pWI){};
 		virtual ~ttDictionary(void);
 	};
 

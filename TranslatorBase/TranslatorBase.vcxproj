@@ -22,7 +22,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
@@ -74,20 +74,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ttObjectPool.h" />
+    <ClInclude Include="ttFileIOManager.h" />
     <ClInclude Include="ttWord.h" />
     <ClInclude Include="ttDictionary.h" />
     <ClInclude Include="ttMacros.h" />
     <ClInclude Include="TranslatorTools.h" />
     <ClInclude Include="ttMemoryManager.h" />
-    <ClInclude Include="ttNode.h" />
+    <ClInclude Include="ttArray.h" />
     <ClInclude Include="ttObject.h" />
     <ClInclude Include="ttParser.h" />
+    <ClInclude Include="ttWordInformation.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ttFileIOManager.cpp" />
+    <ClCompile Include="ttParser.cpp" />
+    <ClCompile Include="ttObjectPool.cpp" />
     <ClCompile Include="ttWord.cpp" />
     <ClCompile Include="ttDictionary.cpp" />
     <ClCompile Include="ttMemoryManager.cpp" />
-    <ClCompile Include="ttNode.cpp" />
+    <ClCompile Include="ttArray.cpp" />
     <ClCompile Include="ttObject.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

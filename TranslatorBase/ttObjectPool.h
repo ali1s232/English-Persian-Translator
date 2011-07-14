@@ -8,20 +8,7 @@
 namespace TranslationTools
 {
 	class ttObject;
-	class ttRTTI
-	{
-	protected:
-		std::string type;
-	public:
-		ttRTTI(){};
-		ttRTTI(const char*pName) : type(pName) {};
-		void load(void* pData,int size){type.assign((char*)pData);}
-		void save(void* pTarget){memcpy(pTarget,type.c_str(),type.length()+1);}
-		bool operator < (const ttRTTI& pRight) const {return type < pRight.type;}
-		bool operator == (const ttRTTI& pRight) const {return type == pRight.type;}
-		bool operator != (const ttRTTI& pRight) const {return type != pRight.type;}
-		inline unsigned size(){return type.length() + 1;};
-	};
+	class ttRTTI;
 
 	class ttObjectPool
 	{
@@ -33,11 +20,28 @@ namespace TranslationTools
 		const ttObject* getObjectSample(ttRTTI&)const;
 	};
 
+	class ttRTTI
+	{
+	protected:
+		std::string type;
+	public:
+		ttRTTI(){};
+		ttRTTI(ttObject*sample, const char* name) : type(name) {	
+			TranslationTools::ttObjectPool::getInstance()->registerNewSample(sample);
+		};
+		void load(void* pData,int size){type.assign((char*)pData);}
+		void save(void* pTarget) const {memcpy(pTarget,type.c_str(),type.length()+1);}
+		bool operator < (const ttRTTI& pRight) const {return type < pRight.type;}
+		bool operator == (const ttRTTI& pRight) const {return type == pRight.type;}
+		bool operator != (const ttRTTI& pRight) const {return type != pRight.type;}
+		inline unsigned size() const{return type.length() + 1;};
+	};
+
+
 	struct ttObjectIntroducer
 	{
 		ttObjectIntroducer(ttObject* obj)
 		{
-			TranslationTools::ttObjectPool::getInstance()->registerNewSample(obj);
 		}
 	};
 

@@ -7,7 +7,7 @@
 #define ttPROPERTY(X,Y) private:X m##Y;public:inline void set##Y(X p##Y){m##Y=p##Y;}inline X get##Y()const {return m##Y;}
 #define ttPROPERTY_NODEF(X,Y) private:X m##Y;public: virtual void set##Y(X p##Y);virtual X get##Y()const;
 
-#define ttDeclareRTTI private: static ttObjectIntroducer mIntroducer;public: virtual const char* getTypeInfo() const;static const char* getStaticTypeInfo();
-#define ttImplementRTTI(X) ttObjectIntroducer X::mIntroducer(new X);const char* X::getTypeInfo() const{return #X;}const char* X::getStaticTypeInfo(){return #X;}
+#define ttDeclareRTTI private: static const ttRTTI mRTTI;public: virtual const ttRTTI& getTypeInfo() const;static const ttRTTI& getStaticTypeInfo();
+#define ttImplementRTTI(X) const ttRTTI X::mRTTI(new X,#X);const ttRTTI& X::getTypeInfo() const{return mRTTI;}const ttRTTI& X::getStaticTypeInfo(){return mRTTI;}
 
 #endif

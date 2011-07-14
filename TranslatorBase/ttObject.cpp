@@ -44,10 +44,12 @@ void ttObject::setAutoRelease(bool pAutoRelease)
 {
 	mAutoRelease = pAutoRelease;
 	if (mRefCount == 0)
+	{
 		if (mAutoRelease)
 			ttMemoryManager::getInstance()->addToDeleteList(this);
 		else
 			ttMemoryManager::getInstance()->removeFromDeleteList(this);
+	}
 }
 
 bool ttObject::getAutoRelease() const
@@ -96,6 +98,18 @@ void ttObject::detachAllMetaData()
 		detachMetaData(mMetaData.begin()->first);
 }
 
+void ttObject::save(ttFileOManager& pFileManager,void* pBuffer)
+{
+	ttObject** target = (ttObject**)pBuffer;
+	for(map<ttRTTI,ttObject*>::iterator i = mMetaData.begin();i!=mMetaData.end();i++)
+	{
+		pFileManager.addObject(i->second);
+		*target=i->second;
+		target ++;
+	}
+
+}
+
 void ttObject::load(ttFileIManager& pFileManager,void* pBuffer,int pBufferSize)
 {
 	detachAllMetaData();
@@ -103,6 +117,11 @@ void ttObject::load(ttFileIManager& pFileManager,void* pBuffer,int pBufferSize)
 	ttObject** meta = (ttObject**)pBuffer;
 	for(int i=0;i<objectNum;i++)
 		this->attachMetaData(pFileManager.renewPointer(meta[i]));
+}
+
+int ttObject::size()
+{
+	return mMetaData.size() * 4;
 }
 
 ttObject* ttObject::clone() const

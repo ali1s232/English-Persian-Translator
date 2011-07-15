@@ -21,7 +21,8 @@ SOURCES += main.cpp\
         ../TranslatorBase/ttObject.cpp\
         ../TranslatorBase/ttObjectPool.cpp\
         ../TranslatorBase/ttParser.cpp\
-        ../TranslatorBase/ttWord.cpp
+        ../TranslatorBase/ttWord.cpp \
+    aboutwindow.cpp
 
 
 
@@ -36,8 +37,9 @@ HEADERS  += mainwindow.h\
         ../TranslatorBase/ttObjectPool.h\
         ../TranslatorBase/ttParser.h\
         ../TranslatorBase/ttWord.h\
-        ../TranslatorBase/ttWordInformation.h
+        ../TranslatorBase/ttWordInformation.h \
+    aboutwindow.h
 
 
-FORMS    += mainwindow.ui
-
+FORMS    += mainwindow.ui \
+    aboutwindow.ui

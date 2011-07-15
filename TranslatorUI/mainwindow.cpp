@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "aboutwindow.h"
 #include <QFileDialog>
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -16,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->action_Options,SIGNAL(triggered()),this,SLOT(OptionsClick()));
     connect(ui->action_Help,SIGNAL(triggered()),this,SLOT(HelpClick()));
     connect(ui->action_About,SIGNAL(triggered()),this,SLOT(AboutClick()));
+    connect(ui->translateButton,SIGNAL(clicked()),this,SLOT(TranslateClick()));
 }
 
 MainWindow::~MainWindow()
@@ -54,8 +57,9 @@ void MainWindow::SpellCheckClick()
 
 void MainWindow::TranslateClick()
 {
-    QDialog dialog;
-    dialog.show();
+    //QDialog dialog;
+    //dialog.show();
+    ui->TextEditB->setPlainText(ui->TextEditA->toPlainText());
 }
 
 void MainWindow::OptionsClick()
@@ -72,7 +76,8 @@ void MainWindow::HelpClick()
 
 void MainWindow::AboutClick()
 {
-    QDialog dialog;
-    dialog.show();
+    static AboutWindow* about = new AboutWindow;
+    about->show();
+    about->activateWindow();
 }
 

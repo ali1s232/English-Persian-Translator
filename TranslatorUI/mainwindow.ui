@@ -24,15 +24,15 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <widget class="QComboBox" name="comboBoxB"/>
+       <widget class="QComboBox" name="comboBoxA"/>
       </item>
       <item>
-       <widget class="QPlainTextEdit" name="TextEditB"/>
+       <widget class="QPlainTextEdit" name="TextEditA"/>
       </item>
      </layout>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="translateButton">
       <property name="maximumSize">
        <size>
         <width>40</width>
@@ -47,10 +47,10 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QComboBox" name="comboBoxA"/>
+       <widget class="QComboBox" name="comboBoxB"/>
       </item>
       <item>
-       <widget class="QPlainTextEdit" name="TextEditA"/>
+       <widget class="QPlainTextEdit" name="TextEditB"/>
       </item>
      </layout>
     </item>

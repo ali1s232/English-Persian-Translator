@@ -7,7 +7,7 @@
 namespace TranslationTools
 {
 
-	class ttWordInformation : public ttObject
+	class ttBasicWordInformation : public ttObject
 	{
 	public:
 		enum ttWordType

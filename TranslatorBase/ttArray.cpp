@@ -7,6 +7,8 @@ using namespace TranslationTools;
 
 ttImplementRTTI(ttArray);
 
+ttObject* ttArray::mNULL;
+
 ttArray::ttArray()
 {
 
@@ -14,7 +16,6 @@ ttArray::ttArray()
 
 ttArray::~ttArray()
 {
-	cout << "man delete shodam alan!\n";
 }
 
 ttArray::ttArray(ttObject* first, ...)
@@ -23,7 +24,6 @@ ttArray::ttArray(ttObject* first, ...)
 	va_start(list,first);
 	while (first)
 	{
-		first->retain();
 		mData.push_back(first);
 		first = va_arg(list,ttObject*);
 	}
@@ -35,13 +35,12 @@ ttArray::ttArray(const ttArray& pArray) : ttObject(pArray)
 	for(unsigned i=0;i<pArray.mData.size();i++)
 	{
 		mData[i] = pArray.mData[i];
-		mData[i]->retain();
 	}
 }
 
 void ttArray::addObject(ttObject* pEntry,int pos)
 {
-	pEntry->retain();
+
 	if (pos < 0 || pos >= (int)mData.size())
 		mData.push_back(pEntry);
 	else
@@ -52,12 +51,11 @@ void ttArray::removeObject(int pos)
 {
 	if (pos>=0 && pos < (int)mData.size())
 	{
-		mData[pos]->release();
 		mData.erase(mData.begin()+pos);
 	}
 }
 
-void ttArray::save(ttFileOManager& pFileManager, void* pBuffer)
+void ttArray::save(ttFileOManager& pFileManager, void* pBuffer)const
 {
 	pFileManager.saveParent<ttObject>();
 	ttObject** data = (ttObject**) pBuffer;
@@ -65,19 +63,17 @@ void ttArray::save(ttFileOManager& pFileManager, void* pBuffer)
 		pFileManager.addObject(data[i] = mData[i]);
 }
 
-void ttArray::load(ttFileIManager& pFileManager,void* pBuffer,int dataSize)
+void ttArray::load(ttFileIManager& pFileManager,void* pData,int dataSize)
 {
 	int objectNum = dataSize / 4;
 	pFileManager.loadParent<ttObject>();
-	for(unsigned i = 0;i < mData.size();i++)
-		mData[i]->release();
 	mData.resize(objectNum);
-	ttObject** data = (ttObject**) pBuffer;
+	ttObject** data = (ttObject**) pData;
 	for(unsigned i=0;i<mData.size();i++)
 		mData[i] = pFileManager.renewPointer(data[i]);
 }
 
-int ttArray::size()
+int ttArray::size()const
 {
 	return mData.size() * 4;
 }
@@ -85,6 +81,25 @@ int ttArray::size()
 ttObject* ttArray::clone() const
 {
 	return new ttArray(*this);
+}
+
+bool ttArray::operator==(const ttObject& pRight) const
+{
+	if (ttObject::operator==(pRight) == false)
+		return false;
+	const ttArray* right = dynamic_cast<const ttArray*>(&pRight);
+	if (right)
+	{
+		if (mData.size() != right->mData.size())
+			return false;
+		for (unsigned i=0;i<mData.size();i++)
+			if (mData[i] != right->mData[i])
+				if (!mData[i]->operator==(*right->mData[i]))
+					return false;
+	}
+	else
+		return false;
+	return true;
 }
 
 void ttArray::print(ostream& stream)

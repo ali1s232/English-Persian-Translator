@@ -10,7 +10,7 @@
 #include "ttMemoryManager.h"
 #include "ttMacros.h"
 #include "ttParser.h"
-#include "ttWordInformation.h"
+#include "ttBasicWordInformation.h"
 
 
 #endif

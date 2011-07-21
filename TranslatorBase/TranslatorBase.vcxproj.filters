@@ -31,9 +31,6 @@
     <ClInclude Include="ttWord.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ttWordInformation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ttFileIOManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -41,6 +38,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ttArray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ttBasicWordInformation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

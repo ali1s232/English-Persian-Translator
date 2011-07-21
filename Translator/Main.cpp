@@ -5,30 +5,30 @@
 using namespace std;
 using namespace TranslationTools;
 
+ttWord salam(L"salam");
+ttWord salam2(L"salam");
+ttWord hi(L"hi");
+
 int main()
 {
-	/*ttFileIManager loader;
-	ttWord::getStaticTypeInfo();
-	ttArray::getStaticTypeInfo();*/
-	ttObject* x  = new ttObject();
-	ttWord* y = new ttWord(L"salam");
-	ttArray* z = new ttArray(new ttWord(L"babat"), new ttWord(L"amat"),NULL);
-	x->attachMetaData(y);
-	x->attachMetaData(z);
-	x->retain();
-	ttMemoryManager::getInstance()->cleanUp();
-	ttFileOManager k;
-	k.initializeSave(x);
-	k.flush("test2.srz");
-	x->release();
-	ttMemoryManager::getInstance()->cleanUp();
-	ttFileIManager kk;
-	x = kk.initializeLoad("test2.srz");
-	y = x->getMetaData<ttWord>();
-	z = x->getMetaData<ttArray>();
-	x->retain();
-	ttMemoryManager::getInstance()->cleanUp();
-	x->release();
-	ttMemoryManager::getInstance()->cleanUp();
+	salam.retain();
+	salam2.retain();
+	salam2.attachMetaData(new ttObject);
+	hi.retain();
+	ttDictionary* dic = new ttDictionary;
+	ttDictionary::addWord(ttArray(&salam,NULL),ttArray(dic,NULL));
+	ttDictionary::addWord(ttArray(&salam2,NULL),ttArray(dic,NULL));
+	ttDictionary::addWord(ttArray(&hi,NULL),ttArray(dic,NULL));
+
+	wcout << dic->findWord(salam) << "\n";
+
+	ttArray& x = dic->findNearestWords(salam);
+	ttFileOManager saver;
+	saver.initializeSave(dic);
+	saver.flush("dictionary.srz");
+	dic = (ttDictionary*)ttFileIManager::ttFileIManager().initializeLoad("dictionary.srz");
+	for(unsigned i=0;i<x.objNum();i++)
+		wcout << dynamic_cast<ttWord*>(x[i])->getWord() << "\n";
+
 	return 0;
 }

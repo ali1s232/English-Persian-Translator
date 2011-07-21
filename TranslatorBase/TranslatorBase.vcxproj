@@ -84,7 +84,7 @@
     <ClInclude Include="ttArray.h" />
     <ClInclude Include="ttObject.h" />
     <ClInclude Include="ttParser.h" />
-    <ClInclude Include="ttWordInformation.h" />
+    <ClInclude Include="ttBasicWordInformation.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ttFileIOManager.cpp" />

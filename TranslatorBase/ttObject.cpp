@@ -98,10 +98,10 @@ void ttObject::detachAllMetaData()
 		detachMetaData(mMetaData.begin()->first);
 }
 
-void ttObject::save(ttFileOManager& pFileManager,void* pBuffer)
+void ttObject::save(ttFileOManager& pFileManager,void* pBuffer)const
 {
 	ttObject** target = (ttObject**)pBuffer;
-	for(map<ttRTTI,ttObject*>::iterator i = mMetaData.begin();i!=mMetaData.end();i++)
+	for(map<ttRTTI,ttObject*>::const_iterator i = mMetaData.cbegin();i!=mMetaData.cend();i++)
 	{
 		pFileManager.addObject(i->second);
 		*target=i->second;
@@ -119,7 +119,7 @@ void ttObject::load(ttFileIManager& pFileManager,void* pBuffer,int pBufferSize)
 		this->attachMetaData(pFileManager.renewPointer(meta[i]));
 }
 
-int ttObject::size()
+int ttObject::size() const
 {
 	return mMetaData.size() * 4;
 }
@@ -129,6 +129,24 @@ ttObject* ttObject::clone() const
 	ttObject* result = new ttObject;
 	new (result)ttObject(*this);
 	return result;
+}
+
+bool ttObject::operator == (const ttObject& pRight) const
+{
+	if (getTypeInfo() != pRight.getTypeInfo())
+		return false;
+	if (mMetaData.size() != pRight.mMetaData.size())
+		return false;
+	map<ttRTTI, ttObject*>::const_iterator i = mMetaData.cbegin();
+	map<ttRTTI, ttObject*>::const_iterator j = pRight.mMetaData.cbegin();
+	for(; i!=mMetaData.cend() && j!=pRight.mMetaData.cend();i++,j++)
+		if (i->first != j->first)
+			return false;
+		else
+			if(i->second != j->second)
+				if(!i->second->operator==(*j->second))
+					return false;
+	return true;
 }
 
 void ttObject::print(std::ostream& stream)

@@ -40,10 +40,15 @@ namespace TranslationTools
 		}
 		
 		virtual void print(std::ostream& stream);
-		virtual void save(ttFileOManager& buffer,void*);
+		virtual void save(ttFileOManager& buffer,void*)const;
 		virtual void load(ttFileIManager& buffer,void*,int);
-		virtual int size();
+		virtual int size() const;
 		virtual ttObject* clone()const;
+		virtual bool operator == (const ttObject& pRight) const;
+		inline bool operator != (const ttObject& pRight) const
+		{
+			return !(*this==pRight);
+		}
 	};
 }
 

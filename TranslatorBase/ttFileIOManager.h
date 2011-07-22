@@ -44,6 +44,8 @@ namespace TranslationTools
 		{
 			clear();
 			std::ifstream s(pPath,std::ios::binary);
+			if (!s.is_open())
+				return NULL;
 			s.seekg(std::ios::beg);
 			unsigned objectNum;
 			s.read((char*)&objectNum,4);
@@ -176,9 +178,11 @@ namespace TranslationTools
 			rtti.save(mMemmory[mSaveStack.top()].first.back().second + 4);
 			mMemmory[mSaveStack.top()].second->T::save(*this,mMemmory[mSaveStack.top()].first.back().second + rttiSize + 4);
 		};
-		void flush(char* pPath)
+		bool flush(char* pPath)
 		{
 			std::ofstream out(pPath,std::ios::binary);
+			if (!out.is_open())
+				return false;
 			int objNum = mMemmory.size();
 			out.write((char*)&objNum,4);
 			for(int i=0;i<objNum;i++)
@@ -192,6 +196,7 @@ namespace TranslationTools
 					out.write(j->second,j->first & ~TTFILEMANAGER_INHERITENBIT);
 			out.flush();
 			out.close();
+			return true;
 		}
 	};
 

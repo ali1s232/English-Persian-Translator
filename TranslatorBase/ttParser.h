@@ -14,6 +14,19 @@ class ttParser
 {
 protected:
 	ttDictionary* mDictionary;
+	void explode(const ttWord::wordType& input,const ttWord::wordType& delims, std::vector<ttWord::wordType>& output)
+	{
+		unsigned last = 0;
+		for (unsigned i=0;i<input.size();i++)
+			if (delims.find(input[i]) != ttWord::wordType::npos)
+			{
+				if (i - last > 0)
+					output.push_back(ttWord::wordType(input.c_str() + last ,i - last ));
+				last = i + 1;
+			}
+		if (input.size() - last > 0)
+			output.push_back(ttWord::wordType(input.c_str() + last,input.size() - last));
+	};
 public:
 	ttParser() : mDictionary(NULL) {};
 	virtual ~ttParser() {};

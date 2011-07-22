@@ -91,6 +91,8 @@
     <addaction name="action_Translate"/>
     <addaction name="separator"/>
     <addaction name="action_Options"/>
+    <addaction name="separator"/>
+    <addaction name="action_Add_new_word"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuTranslator"/>
@@ -154,6 +156,11 @@
   <action name="action_Spell_Check">
    <property name="text">
     <string>&amp;Spell Check</string>
+   </property>
+  </action>
+  <action name="action_Add_new_word">
+   <property name="text">
+    <string>&amp;Add new word</string>
    </property>
   </action>
  </widget>

@@ -17,7 +17,7 @@
     <ClInclude Include="PersianParser.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{90B13A20-F8D0-48AB-A412-27559CE399E9}</ProjectGuid>
+    <ProjectGuid>{22EE4D62-A1FB-4EEA-9AF8-78B1AEC54587}</ProjectGuid>
     <RootNamespace>PersianParser</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

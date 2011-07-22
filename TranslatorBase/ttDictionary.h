@@ -9,6 +9,7 @@ namespace TranslationTools
 {
 	class ttDictionary : public ttObject
 	{
+		ttDeclareRTTI;
 		struct ttWordPtrLess
 		{
 			bool operator ()(const ttWord* pLeft,const ttWord*pRight)

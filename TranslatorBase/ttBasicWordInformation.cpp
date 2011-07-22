@@ -5,6 +5,7 @@ using namespace TranslationTools;
 
 ttImplementRTTI(ttWordID);
 ttImplementRTTI(ttWordType);
+ttImplementRTTI(ttPhraseRole);
 
 void ttWordID::save(ttFileOManager& buffer,void*target)const
 {

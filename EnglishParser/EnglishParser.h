@@ -5,7 +5,6 @@
 
 class EnglishParser : public TranslationTools::ttParser
 {
-	TranslationTools::ttDictionary *mDictionary;
 public:
 	EnglishParser(void);
 	virtual TranslationTools::ttArray* parse(TranslationTools::ttWord::wordType script);

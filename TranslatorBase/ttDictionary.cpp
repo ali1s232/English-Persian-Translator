@@ -3,6 +3,7 @@
 using namespace std;
 using namespace TranslationTools;
 
+ttImplementRTTI(ttDictionary);
 
 ttDictionary::ttDictionary(void)
 {

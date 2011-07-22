@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C++ Express 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Translator", "Translator\Translator.vcxproj", "{3EDC60F6-2F5A-4446-8BAF-BC17F137B45C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{90B13A20-F8D0-48AB-A412-27559CE399E9} = {90B13A20-F8D0-48AB-A412-27559CE399E9}
+		{6A82492E-0903-4137-9C1E-C57D15F2BEE8} = {6A82492E-0903-4137-9C1E-C57D15F2BEE8}
+		{22EE4D62-A1FB-4EEA-9AF8-78B1AEC54587} = {22EE4D62-A1FB-4EEA-9AF8-78B1AEC54587}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TranslatorBase", "TranslatorBase\TranslatorBase.vcxproj", "{6A82492E-0903-4137-9C1E-C57D15F2BEE8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PersianParser", "PersianParser\PersianParser.vcxproj", "{22EE4D62-A1FB-4EEA-9AF8-78B1AEC54587}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6A82492E-0903-4137-9C1E-C57D15F2BEE8} = {6A82492E-0903-4137-9C1E-C57D15F2BEE8}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EnglishParser", "EnglishParser\EnglishParser.vcxproj", "{90B13A20-F8D0-48AB-A412-27559CE399E9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6A82492E-0903-4137-9C1E-C57D15F2BEE8} = {6A82492E-0903-4137-9C1E-C57D15F2BEE8}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3EDC60F6-2F5A-4446-8BAF-BC17F137B45C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3EDC60F6-2F5A-4446-8BAF-BC17F137B45C}.Debug|Win32.Build.0 = Debug|Win32
+		{3EDC60F6-2F5A-4446-8BAF-BC17F137B45C}.Release|Win32.ActiveCfg = Release|Win32
+		{3EDC60F6-2F5A-4446-8BAF-BC17F137B45C}.Release|Win32.Build.0 = Release|Win32
+		{6A82492E-0903-4137-9C1E-C57D15F2BEE8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6A82492E-0903-4137-9C1E-C57D15F2BEE8}.Debug|Win32.Build.0 = Debug|Win32
+		{6A82492E-0903-4137-9C1E-C57D15F2BEE8}.Release|Win32.ActiveCfg = Release|Win32
+		{6A82492E-0903-4137-9C1E-C57D15F2BEE8}.Release|Win32.Build.0 = Release|Win32
+		{22EE4D62-A1FB-4EEA-9AF8-78B1AEC54587}.Debug|Win32.ActiveCfg = Debug|Win32
+		{22EE4D62-A1FB-4EEA-9AF8-78B1AEC54587}.Debug|Win32.Build.0 = Debug|Win32
+		{22EE4D62-A1FB-4EEA-9AF8-78B1AEC54587}.Release|Win32.ActiveCfg = Release|Win32
+		{22EE4D62-A1FB-4EEA-9AF8-78B1AEC54587}.Release|Win32.Build.0 = Release|Win32
+		{90B13A20-F8D0-48AB-A412-27559CE399E9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{90B13A20-F8D0-48AB-A412-27559CE399E9}.Debug|Win32.Build.0 = Debug|Win32
+		{90B13A20-F8D0-48AB-A412-27559CE399E9}.Release|Win32.ActiveCfg = Release|Win32
+		{90B13A20-F8D0-48AB-A412-27559CE399E9}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

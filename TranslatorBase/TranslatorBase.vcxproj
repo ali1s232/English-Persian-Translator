@@ -87,8 +87,6 @@
     <ClInclude Include="ttBasicWordInformation.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ttFileIOManager.cpp" />
-    <ClCompile Include="ttParser.cpp" />
     <ClCompile Include="ttObjectPool.cpp" />
     <ClCompile Include="ttWord.cpp" />
     <ClCompile Include="ttDictionary.cpp" />

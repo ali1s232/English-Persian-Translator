@@ -20,7 +20,6 @@ SOURCES += main.cpp\
         ../TranslatorBase/ttMemoryManager.cpp\
         ../TranslatorBase/ttObject.cpp\
         ../TranslatorBase/ttObjectPool.cpp\
-        ../TranslatorBase/ttParser.cpp\
         ../TranslatorBase/ttWord.cpp \
     aboutwindow.cpp
 
@@ -33,11 +32,11 @@ HEADERS  += mainwindow.h\
         ../TranslatorBase/ttFileIOManager.h\
         ../TranslatorBase/ttMacros.h\
         ../TranslatorBase/ttMemoryManager.h\
-        ./TranslatorBase/ttObject.h\
+	../TranslatorBase/ttObject.h\
         ../TranslatorBase/ttObjectPool.h\
         ../TranslatorBase/ttParser.h\
         ../TranslatorBase/ttWord.h\
-        ../TranslatorBase/ttWordInformation.h \
+	../TranslatorBase/ttBasicWordInformation.h \
     aboutwindow.h
 
 

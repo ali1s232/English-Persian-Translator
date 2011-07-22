@@ -12,11 +12,10 @@ namespace TranslationTools
 class ttParser
 {
 public:
-	ttParser(ttWord::wordType scrpit);
-	ttParser();
+	ttParser(){};
+	virtual ~ttParser(){};
 	virtual ttArray* parse(ttWord::wordType script) = 0;
-	ttPROPERTY_NODEF_PROTECTED(ttArray*, root);
-	virtual ttArray* translate(ttArray* pRoot) = 0;
+	virtual ttWord::wordType translate(ttArray* pRoot) = 0;
 };
 
 }

@@ -57,12 +57,6 @@
     <ClCompile Include="ttWord.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
-    <ClCompile Include="ttParser.cpp">
-      <Filter>Source files</Filter>
-    </ClCompile>
-    <ClCompile Include="ttFileIOManager.cpp">
-      <Filter>Source files</Filter>
-    </ClCompile>
     <ClCompile Include="ttObjectPool.cpp">
       <Filter>Source files</Filter>
     </ClCompile>

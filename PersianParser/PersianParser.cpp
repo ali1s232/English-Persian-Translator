@@ -111,7 +111,40 @@ TranslationTools::ttArray* PersianParser::parse(TranslationTools::ttWord::wordTy
 
 TranslationTools::ttWord::wordType PersianParser::translate(TranslationTools::ttArray* pRoot)
 {
-	return L"";
+	wstring result;
+	ttPhraseRole* needed[3] = {new ttPhraseRole(ttPhraseRole::pr_Subject), new ttPhraseRole(ttPhraseRole::pr_Object), new ttPhraseRole(ttPhraseRole::pr_Verb)};
+	for(unsigned i=0;i<pRoot->objNum();i++)
+	{
+		if(ttArray* paragraph = dynamic_cast<ttArray*>(pRoot->operator[](i)))
+		{
+			for(unsigned j = 0; j < paragraph->objNum();j++)
+				if (ttArray* sentence = dynamic_cast<ttArray*>(paragraph->operator[](j)))
+				{
+					for(unsigned found = 0;found < 3;found ++)
+						for(unsigned k=0;k<sentence->objNum();k++)
+							if (sentence->operator[](k)->getMetaData<ttPhraseRole>() && sentence->operator[](k)->getMetaData<ttPhraseRole>()->operator== (*needed[found]))
+							{
+								if (ttArray* words = dynamic_cast<ttArray*>(sentence->operator[](k)))
+								{
+									for(unsigned l = 0;l < words->objNum();l ++)
+									{
+										words->operator[](l) = mDictionary->getWord(static_cast<ttWordID*>(words->operator[](l))->getID());
+										if (words->operator[](l)->getMetaData<ttWordType>()->operator == (ttWordType::wt_Noun) ||
+											words->operator[](l)->getMetaData<ttWordType>()->operator == (ttWordType::wt_Verb))
+											result += static_cast<ttWord*>(words->operator[](l))->getWord() + L" ";
+									}
+									for(unsigned l = 0;l < words->objNum();l ++)
+										if (!words->operator[](l)->getMetaData<ttWordType>()->operator == (ttWordType::wt_Noun) &&
+											!words->operator[](l)->getMetaData<ttWordType>()->operator == (ttWordType::wt_Verb))
+											result += static_cast<ttWord*>(words->operator[](l))->getWord() + L" ";
+								}
+							}
+					result += L'.';
+				}
+			result += L'\n';
+		}
+	}
+	return result;
 }
 
 PersianParser::~PersianParser(void)

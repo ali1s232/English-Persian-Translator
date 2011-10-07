@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "../TranslatorBase/TranslatorTools.h"
+#include "../PersianParser/PersianParser.h"
+#include "../EnglishParser/EnglishParser.h"
 
 namespace Ui {
     class MainWindow;
@@ -27,6 +30,10 @@ public slots:
     void HelpClick();
     void OptionsClick();
     void AboutClick();
+    void NewWordClick();
 };
+
+extern EnglishParser *ep;
+extern PersianParser *pp;
 
 #endif // MAINWINDOW_H

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>addWordWindow</class>
+ <widget class="QDialog" name="addWordWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>320</width>
+    <height>240</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_4">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Persian Word</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEditP"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>English Word</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEditE"/>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="QComboBox" name="wordType">
+       <item>
+        <property name="text">
+         <string>Noun</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Verb</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Adjective</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Adverb</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Pronoun</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>preposition</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Conjunction</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Interjunction</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QPushButton" name="AddWord">
+         <property name="text">
+          <string>Add Word</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="ResetForm">
+         <property name="text">
+          <string>Reset Form</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="Close">
+         <property name="text">
+          <string>Close</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

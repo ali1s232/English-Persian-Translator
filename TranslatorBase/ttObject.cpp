@@ -16,7 +16,7 @@ ttObject::ttObject() : mRefCount(0), mAutoRelease(false)
 ttObject::ttObject(const ttObject& pObject) : mRefCount(0), mAutoRelease(pObject.mAutoRelease)
 {
 	for(map <ttRTTI,ttObject*>::const_iterator i = pObject.mMetaData.cbegin();i!=pObject.mMetaData.cend();i++)
-		attachMetaData(i->second);
+		attachMetaData(i->second->clone());
 }
 
 ttObject::~ttObject()

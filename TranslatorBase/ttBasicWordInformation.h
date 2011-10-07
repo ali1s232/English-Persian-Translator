@@ -15,7 +15,7 @@ namespace TranslationTools
 		ttWordID(int pID) : ttObject(), mID (pID) {};
 		ttWordID(const ttWordID& pID) : ttObject(pID) { mID= pID.mID;};
 		ttPROPERTY_PROTECTED(int, ID);
-		bool operator == (const ttWordID& pRight)const { return mID == pRight.mID && this->ttObject::operator== (pRight);};
+		bool operator == (const ttObject& pRight)const { return this->ttObject::operator== (pRight) && mID == dynamic_cast<const ttWordID*>(&pRight)->mID;};
 		bool operator == (const int& pRight)const {return mID == pRight;};
 		virtual void save(ttFileOManager& buffer,void*)const;
 		virtual void load(ttFileIManager& buffer,void*,int);
@@ -44,7 +44,7 @@ namespace TranslationTools
 		ttWordType(WordType pType) : ttObject(), mType(pType) {};
 		ttWordType(const ttWordType& pType) : ttObject(pType) { mType= pType.mType;};
 		ttPROPERTY_PROTECTED(WordType,Type);
-		bool operator == (const ttWordType& pRight)const { return mType == pRight.mType && this->ttObject::operator== (pRight);};
+		bool operator == (const ttObject& pRight)const { return this->ttObject::operator== (pRight) && mType == dynamic_cast<const ttWordType*>(&pRight)->mType;};
 		bool operator == (const WordType& pRight)const {return mType == pRight;};
 		virtual void save(ttFileOManager& buffer,void*)const;
 		virtual void load(ttFileIManager& buffer,void*,int);
@@ -58,12 +58,12 @@ namespace TranslationTools
 	public :
 		enum PhraseRole
 		{
-			pr_Unknown,
-			pr_Verb,
-			pr_Subject,
-			pr_Object,
-			pr_Adjective,
-			pr_Adverb,
+			pr_Unknown = 0,
+			pr_Verb = 1,
+			pr_Subject = 2,
+			pr_Object = 3,
+			pr_Adjective = 4,
+			pr_Adverb = 5,
 			pr_max
 		};
 		ttPhraseRole() : ttObject(), mRole(pr_Unknown) {};
@@ -71,7 +71,7 @@ namespace TranslationTools
 		ttPhraseRole(const ttPhraseRole& pRole) : ttObject(pRole) { mRole = pRole.mRole;};
 		
 		ttPROPERTY_PROTECTED(PhraseRole,Role);
-		bool operator == (const ttPhraseRole& pRight)const { return mRole == pRight.mRole && this->ttObject::operator== (pRight);};
+		bool operator == (const ttObject& pRight)const { return this->ttObject::operator== (pRight) && mRole == dynamic_cast<const ttPhraseRole*>(&pRight)->mRole;};
 		bool operator == (const PhraseRole& pRight)const {return mRole == pRight;};
 		virtual void save(ttFileOManager& buffer,void*)const;
 		virtual void load(ttFileIManager& buffer,void*,int);

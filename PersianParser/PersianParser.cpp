@@ -16,9 +16,6 @@ PersianParser::PersianParser(void)
 
 TranslationTools::ttArray* PersianParser::parse(TranslationTools::ttWord::wordType script)
 {
-	//script = towlower(script)
-	for(unsigned i=0;i<script.size();i++)
-		script[i] = towlower(script[i]);
 	vector<ttWord::wordType> paragraphs;
 	explode(script,L"\n",paragraphs);
 	ttArray* root = new ttArray;
@@ -45,8 +42,53 @@ TranslationTools::ttArray* PersianParser::parse(TranslationTools::ttWord::wordTy
 			words.resize(words.size() - shift);
 			ttArray& sentence = *new ttArray;
 			for(unsigned i=0;i<words.size();i++)
+			{
 				sentence(i) = & mDictionary->findNearestWords(words[i]);
-			
+				if (static_cast<ttArray*>(sentence[i])->objNum() == 0)
+				{
+					ttWord::wordType tempWord = words[i],tempWord2;
+					do
+					{
+						if (tempWord.find(L"یم",tempWord.length() - 2) != ttWord::wordType::npos)
+						{
+							tempWord.resize(tempWord.size() - 2);
+							tempWord2 = L"ما";
+							break;
+						}
+						if (tempWord.find(L"ید",tempWord.length() - 1) != ttWord::wordType::npos)
+						{
+							tempWord.resize(tempWord.size() - 2);
+							tempWord2 = L"شما";
+							break;
+						}
+						if (tempWord.find(L"ند",tempWord.length() - 1) != ttWord::wordType::npos)
+						{
+							tempWord.resize(tempWord.size() - 2);
+							tempWord2 = L"آنها";
+							break;
+						}
+						if (tempWord.find(L"م",tempWord.length() - 1) != ttWord::wordType::npos)
+						{
+							tempWord.resize(tempWord.size() - 1);
+							tempWord2 = L"من";
+							break;
+						}
+						if (tempWord.find(L"ی",tempWord.length() - 1) != ttWord::wordType::npos)
+						{
+							tempWord.resize(tempWord.size() - 1);
+							tempWord2 = L"تو";
+							break;
+						}
+					}
+					while(false);
+					sentence[i] = & mDictionary->findNearestWords(tempWord);
+					if (static_cast<ttArray*>(sentence[i])->objNum() != 0)
+					{
+						words[i] = tempWord;
+						words.insert(words.begin() + i, tempWord2);
+					}
+				}
+			}
 			/*for(unsigned i=0;i<words.size();i++)
 			{
 				if (dynamic_cast<ttArray*>(sentence[i])->objnum() == 0))

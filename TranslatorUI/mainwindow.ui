@@ -24,7 +24,18 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <widget class="QComboBox" name="comboBoxA"/>
+       <widget class="QComboBox" name="comboBoxA">
+        <item>
+         <property name="text">
+          <string>Persion</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>English</string>
+         </property>
+        </item>
+       </widget>
       </item>
       <item>
        <widget class="QPlainTextEdit" name="TextEditA"/>
@@ -47,7 +58,18 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QComboBox" name="comboBoxB"/>
+       <widget class="QComboBox" name="comboBoxB">
+        <item>
+         <property name="text">
+          <string>English</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Persion</string>
+         </property>
+        </item>
+       </widget>
       </item>
       <item>
        <widget class="QPlainTextEdit" name="TextEditB"/>

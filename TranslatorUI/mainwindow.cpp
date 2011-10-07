@@ -1,10 +1,14 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "aboutwindow.h"
+#include "addwordwindow.h"
 #include <QFileDialog>
+#include <fstream>
 
-
-
+PersianParser *pp = NULL;
+EnglishParser *ep = NULL;
+using namespace TranslationTools;
+using namespace std;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -20,11 +24,18 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->action_Help,SIGNAL(triggered()),this,SLOT(HelpClick()));
     connect(ui->action_About,SIGNAL(triggered()),this,SLOT(AboutClick()));
     connect(ui->translateButton,SIGNAL(clicked()),this,SLOT(TranslateClick()));
+    connect(ui->action_Add_new_word,SIGNAL(triggered()),this,SLOT(NewWordClick()));
+    if (pp == NULL)
+	pp = new PersianParser;
+    if (ep == NULL)
+	ep = new EnglishParser;
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete pp;
+    delete ep;
 }
 
 void MainWindow::exitClick()
@@ -40,14 +51,28 @@ void MainWindow::newClick()
 
 void MainWindow::SaveClick()
 {
-    QFileDialog saveDialog;
-    saveDialog.show();
+    QString filename = QFileDialog::getSaveFileName(this);
+    ofstream out(filename.toAscii(),ios_base::binary);
+    out.put(0xff).put(0xfe);
+    out.write((char*)ui->TextEditB->toPlainText().toStdWString().c_str(),ui->TextEditB->toPlainText().length() * 2);
+    out.close();
 }
 
 void MainWindow::OpenClick()
 {
-    QFileDialog loadDialog;
-    loadDialog.show();
+    QString filename = QFileDialog::getOpenFileName(this);
+    ifstream in(filename.toAscii(),ios_base::binary);
+    wchar_t* x;
+    in.seekg(0,ios_base::end);
+    int filesize = in.tellg() - 2;
+    in.seekg(0,ios_base::beg);
+    in.ignore(2);
+    x = new wchar_t[filesize + 1];
+    in.read((char*)x,filesize);
+    x[filesize / 2] = 0;
+    ui->TextEditA->setPlainText(QString::fromWCharArray(x));
+    delete x;
+
 }
 
 void MainWindow::SpellCheckClick()
@@ -60,7 +85,19 @@ void MainWindow::TranslateClick()
 {
     //QDialog dialog;
     //dialog.show();
-    ui->TextEditB->setPlainText(ui->TextEditA->toPlainText());
+    wstring s = ui->TextEditA->toPlainText().toStdWString();
+    ttArray* array;
+    if (ui->comboBoxA->currentIndex() == 0)
+	array = pp->parse(s);
+    else
+	array = ep->parse(s);
+
+    if (ui->comboBoxB->currentIndex() == 0)
+	s = ep->translate(array);
+    else
+	s = pp->translate(array);
+
+    ui->TextEditB->setPlainText(QString::fromStdWString(s));
 }
 
 void MainWindow::OptionsClick()
@@ -82,3 +119,10 @@ void MainWindow::AboutClick()
     about->activateWindow();
 }
 
+
+void MainWindow::NewWordClick()
+{
+    static addWordWindow* newWord = new addWordWindow;
+    newWord->show();
+    newWord->activateWindow();
+}

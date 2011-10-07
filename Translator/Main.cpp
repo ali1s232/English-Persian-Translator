@@ -34,11 +34,15 @@ int main()
 	ttArray::getStaticTypeInfo();
 	pp = new PersianParser;
 	ep = new EnglishParser;
-	/*addtodic(L"من",L"I",ttWordType::wt_Noun);
+/*	addtodic(L"من",L"I",ttWordType::wt_Noun);
 	addtodic(L"علی",L"ali",ttWordType::wt_Noun);
 	addtodic(L"قهرمان",L"champion",ttWordType::wt_Adjective);
-	addtodic(L"هستم",L"am",ttWordType::wt_Verb);*/
-	wstring scriptp(L"من علی قهرمان هستم.");
+	addtodic(L"رفت",L"went",ttWordType::wt_Verb);
+	addtodic(L"خانه",L"home",ttWordType::wt_Noun);
+	addtodic(L"ما",L"we",ttWordType::wt_Noun);
+	addtodic(L"ترجمه",L"translate",ttWordType::wt_Noun);
+	addtodic(L"میکند",L"do",ttWordType::wt_Verb);*/
+	wstring scriptp(L"علی غذا میخورد.");
 	ttArray* temp = pp->parse(scriptp);
 	wcout << ep->translate(temp) <"\n";
 	temp = pp->parse(scriptp);

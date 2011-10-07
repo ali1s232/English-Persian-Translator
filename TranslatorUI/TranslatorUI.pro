@@ -21,7 +21,11 @@ SOURCES += main.cpp\
         ../TranslatorBase/ttObject.cpp\
         ../TranslatorBase/ttObjectPool.cpp\
         ../TranslatorBase/ttWord.cpp \
-    aboutwindow.cpp
+	../TranslatorBase/ttBasicWordInformation.cpp \
+	../PersianParser/PersianParser.cpp \
+	../EnglishParser/EnglishParser.cpp \
+    aboutwindow.cpp \
+    addwordwindow.cpp
 
 
 
@@ -37,8 +41,12 @@ HEADERS  += mainwindow.h\
         ../TranslatorBase/ttParser.h\
         ../TranslatorBase/ttWord.h\
 	../TranslatorBase/ttBasicWordInformation.h \
-    aboutwindow.h
+	../PersianParser/PersianParser.h \
+	../EnglishParser/EnglishParser.h \
+    aboutwindow.h \
+    addwordwindow.h
 
 
 FORMS    += mainwindow.ui \
-    aboutwindow.ui
+    aboutwindow.ui \
+    addwordwindow.ui

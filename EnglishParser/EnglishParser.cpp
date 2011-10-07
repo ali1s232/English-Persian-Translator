@@ -129,6 +129,7 @@ TranslationTools::ttWord::wordType EnglishParser::translate(TranslationTools::tt
 											words->operator[](l)->getMetaData<ttWordType>()->operator == (ttWordType::wt_Verb))
 											result += static_cast<ttWord*>(words->operator[](l))->getWord() + L" ";
 								}
+								break;
 							}
 					result += L'.';
 				}

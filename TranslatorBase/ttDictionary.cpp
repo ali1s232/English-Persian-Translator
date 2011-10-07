@@ -56,7 +56,7 @@ bool ttDictionary::addWord(const ttArray& pWords,ttArray& dictionaries)
 		for(unsigned i=0;i<pWords.objNum() && needNewSlot == false;i++)
 			if (wID != (int)i)
 				if (static_cast<ttDictionary*>(dictionaries[i])->mWordList->operator[](wID) != NULL)
-					//if (*static_cast<ttDictionary*>(dictionaries[i])->mWordList->operator[](wID) != (*static_cast<ttWord*>(pWords[i])))
+					if (*static_cast<ttDictionary*>(dictionaries[i])->mWordList->operator[](wID) != (*static_cast<ttWord*>(pWords[i])))
 						needNewSlot = true;
 	if (needNewSlot)
 	{

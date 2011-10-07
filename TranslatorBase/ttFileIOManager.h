@@ -178,7 +178,7 @@ namespace TranslationTools
 			rtti.save(mMemmory[mSaveStack.top()].first.back().second + 4);
 			mMemmory[mSaveStack.top()].second->T::save(*this,mMemmory[mSaveStack.top()].first.back().second + rttiSize + 4);
 		};
-		bool flush(char* pPath)
+		bool flush(const char* pPath)
 		{
 			std::ofstream out(pPath,std::ios::binary);
 			if (!out.is_open())
